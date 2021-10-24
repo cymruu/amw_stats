@@ -7,5 +7,6 @@ docker run --rm -v $(pwd)/exported:/exported -e AMW_STATS_MONGO_HOST=$AMW_STATS_
 
 docker run --rm -v $(pwd)/exported:/exported -v $(pwd)/results:/results -v $(pwd)/scripts:/scripts -v $(pwd)/r-libs:/usr/local/lib/R/site-library r-base /bin/bash -c 'mkdir -p results/ && Rscript /scripts/amw_stats.r'
 
-
+docker build ./docker-magisk -t docker-magisk
+docker run --rm -v $(pwd)/results:/results docker-magisk /bin/sh -c 'cd /results && convert actionsInLastWeek.png activityPerDay.png activityPerHour.png tags.png -append $(date -Iseconds)result.png'
 
