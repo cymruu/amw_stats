@@ -8,4 +8,4 @@ Before using set AMW_STATS_MONGO_HOST env variable to mongo database URI.
 
 Then run `./start.sh`
 
-If you have docker installed you can just run `./docker` to download data, generate stats & assemble charts into result image. 
+If you have docker installed you can just run `./docker.sh` to download data, generate stats & assemble charts into result image. 
