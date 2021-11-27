@@ -1,3 +1,4 @@
+# fail if variable is not set
 set -u
 SINCE=$(date --date="last Sunday - 7 days" --iso-8601=seconds)
 mongoexport --uri="$AMW_STATS_MONGO_HOST" --collection=confessions --out=../exported/confessions.json --query="{\"createdAt\": { \"\$gte\": { \"\$date\": \"$SINCE\" } }}" --jsonArray
