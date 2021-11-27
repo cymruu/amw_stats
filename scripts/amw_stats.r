@@ -83,3 +83,7 @@ ggplot2::ggsave("results/tags.png")
 
 resultText <- sprintf("#anonimowemirkowyznaniastatystyki\nStatystyki z ostatniego tygodnia:\nDodane wyznania i komentarze: %s\nOdrzucone: %s\nprocent dodanych: %.2f\n", totalCreated, totalDeclined, acceptedRatio)
 message(resultText)
+
+resultTextFile <- file("results/resultText.txt")
+writeLines(resultText, resultTextFile)
+close(resultTextFile)
