@@ -7,7 +7,7 @@ if __name__ == "__main__":
   account_key = os.environ['ACCOUNT_KEY']
 
   with open("/results/combined.png", "rb") as statsImage:
-    with open("/results/resultText.txt", "r") as resultTextFile:
+    with open("/results/result_text.txt", "r") as resultTextFile:
       body = resultTextFile.read()
       api = wykop.WykopAPI(appkey, secret)
       api.authenticate(account_key)
