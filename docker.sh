@@ -3,16 +3,20 @@
 # exit if command fails
 set -e
 SINCE=$(date -v-Sun -v-7d -u +"%Y-%m-%dT00:00:00Z")
+UNTIL=$(date -v-Sun -u +"%Y-%m-%dT00:00:00Z")
 
 docker build -t docker-export docker-export
 docker run --rm \
 -e AMW_STATS_MONGO_HOST=$AMW_STATS_MONGO_HOST \
 -e SINCE=$SINCE \
+-e UNTIL=$UNTIL \
 -v $(pwd)/exported:/workspace/exported \
 docker-export
 
 docker build -t docker-stats docker-stats
 docker run --rm \
+-e SINCE=$SINCE \
+-e UNTIL=$UNTIL \
 -v $(pwd)/exported:/workspace/exported \
 -v $(pwd)/pandas:/workspace/pandas \
 docker-stats
