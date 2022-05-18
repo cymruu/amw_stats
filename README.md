@@ -65,13 +65,14 @@ Docker is required
 
 ## Usage
 Set environmental variables
-`AMW_STATS_MONGO_HOST` connection string to amw instance database to generate stats from
-`SINCE` since when to generate date (ISO)
-`UNTIL` until when to generate date (ISO)
-`PERIOD` string name of given period
-`APPKEY` wykop api appkey
-`SECRET` wykop api secret key
-`ACCOUNT_KEY` wykop api account key
+* `AMW_STATS_MONGO_HOST` connection string to amw instance database to generate stats from
+* `SINCE` since when to generate date (ISO)
+* `UNTIL` until when to generate date (ISO)
+* `PERIOD` string name of given period
+* `APPKEY` wykop api appkey
+* `SECRET` wykop api secret key
+* `ACCOUNT_KEY` wykop api account key
+
 and run `./docker.sh`. 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
