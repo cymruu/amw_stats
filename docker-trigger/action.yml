@@ -1,0 +1,5 @@
+name: 'Stats generation'
+description: 'Generate AMW stats'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
