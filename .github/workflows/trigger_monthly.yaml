@@ -1,0 +1,25 @@
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 1 * *'
+jobs:
+  stats_daily:
+    runs-on: ubuntu-latest
+    name: Trigger monthly stats generation
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set SINCE env
+        run: echo "SINCE=$(date --date="$(date +'%Y-%m-01') -1 month" -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_ENV
+      - name: Set UNTIL env
+        run: echo "UNTIL=$(date --date="$(date +'%Y-%m-01')" -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_ENV
+      - name: Generate stats
+        uses: ./docker-trigger
+        env:
+          SINCE: ${{ env.SINCE }}
+          UNTIL: ${{ env.UNTIL }}
+          PERIOD: "monthly"
+          AMW_STATS_MONGO_HOST: ${{ secrets.AMW_STATS_MONGO_HOST }}
+          ACCOUNT_KEY: ${{ secrets.ACCOUNT_KEY }}
+          APPKEY: ${{ secrets.APPKEY }}
+          SECRET: ${{ secrets.SECRET }}
