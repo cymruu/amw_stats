@@ -46,7 +46,7 @@ Project to generate various statistic from AMW database content.
 * [python](https://python.org/)
 * [pandas](https://pandas.pydata.org/)
 * [numpy](https://numpy.org/)
-* [matplotlib](matplotlib.org/)
+* [matplotlib](https://matplotlib.org/)
 * [docker](https://docker.com/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
