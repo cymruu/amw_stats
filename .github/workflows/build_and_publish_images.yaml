@@ -63,3 +63,18 @@ jobs:
           push: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      -
+        name: Generate docker-post tags
+        id: docker-post-tags
+        uses: docker/metadata-action@v4
+        with:
+          images: ghcr.io/cymruu/amw-stats/docker-post
+      -
+        name: Build docker-post
+        uses: docker/build-push-action@v3
+        with:
+          context: docker-post
+          tags: ${{ steps.docker-post-tags.outputs.tags }}
+          push: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
