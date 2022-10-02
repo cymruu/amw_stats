@@ -22,9 +22,9 @@ docker run --rm \
 -v $(pwd)/results:/results \
 docker-imagemagick
 
-# docker run --rm \
-# -v $(pwd)/results:/results \
-# -e APPKEY \
-# -e SECRET \
-# -e ACCOUNT_KEY \
-# docker-post
+docker run --rm \
+-v $(pwd)/results:/results \
+-e APPKEY \
+-e SECRET \
+-e ACCOUNT_KEY \
+docker-post
