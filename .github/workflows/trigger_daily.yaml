@@ -16,10 +16,17 @@ jobs:
         run: echo "SINCE=$(date -d "yesterday 0" -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_ENV
       - name: Set UNTIL env
         run: echo "UNTIL=$(date -d "today 0" -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_ENV
-      - run: docker buildx build --load --cache-from=type=gha --cache-to=type=gha -t docker-export docker-export
-      - run: docker buildx build --load --cache-from=type=gha --cache-to=type=gha -t docker-stats docker-stats
-      - run: docker buildx build --load --cache-from=type=gha --cache-to=type=gha -t docker-imagemagick docker-imagemagick 
-      - run: docker buildx build --load --cache-from=type=gha --cache-to=type=gha -t docker-post docker-post 
+      - run: docker build -t docker-export docker-export
+      - name: Build docker-stats
+        uses: docker/build-push-action@v3
+        with:
+          load: true
+          context: docker-stats
+          push: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - run: docker build -t docker-imagemagick docker-imagemagick 
+      - run: docker build -t docker-post docker-post 
       - name: Generate stats
         run: ./docker.sh
         env:
