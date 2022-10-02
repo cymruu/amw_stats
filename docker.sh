@@ -25,10 +25,10 @@ docker run --rm \
 -v $(pwd)/results:/results \
 docker-imagemagick
 
-docker build ./docker-post -t docker-post
-docker run --rm \
--v $(pwd)/results:/results \
--e APPKEY \
--e SECRET \
--e ACCOUNT_KEY \
-docker-post
+# docker build ./docker-post -t docker-post
+# docker run --rm \
+# -v $(pwd)/results:/results \
+# -e APPKEY \
+# -e SECRET \
+# -e ACCOUNT_KEY \
+# docker-post
