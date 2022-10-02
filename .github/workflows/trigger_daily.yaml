@@ -22,6 +22,7 @@ jobs:
         with:
           load: true
           context: docker-stats
+          tags: docker-stats
           push: false
           cache-from: type=gha
           cache-to: type=gha,mode=max
