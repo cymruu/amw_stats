@@ -14,6 +14,10 @@ jobs:
         run: echo "SINCE=$(date -d "yesterday 0" -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_ENV
       - name: Set UNTIL env
         run: echo "UNTIL=$(date -d "today 0" -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_ENV
+      - run: docker build -t docker-export docker-export
+      - run: docker build -t docker-stats docker-stats
+      - run: docker build -t docker-imagemagick docker-imagemagick 
+      - run: docker build -t docker-post docker-post 
       - name: Generate stats
         run: ./docker.sh
         env:
