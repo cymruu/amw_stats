@@ -14,7 +14,7 @@ jobs:
       - name: Set UNTIL env
         run: echo "UNTIL=$(date -d "today 0" -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_ENV
       - name: Generate stats
-        uses: ./docker-trigger
+        run: ./docker.sh
         env:
           SINCE: ${{ env.SINCE }}
           UNTIL: ${{ env.UNTIL }}
