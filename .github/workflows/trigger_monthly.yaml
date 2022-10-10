@@ -1,7 +1,7 @@
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 6 1 * *'
+    - cron: "0 6 1 * *"
 jobs:
   stats_daily:
     runs-on: ubuntu-latest
@@ -18,16 +18,44 @@ jobs:
       - name: Build docker-stats
         run: docker build -t docker-stats docker-stats
       - name: Build docker-imagemagick
-        run: docker build -t docker-imagemagick docker-imagemagick 
+        run: docker build -t docker-imagemagick docker-imagemagick
       - name: Build docker-post
-        run: docker build -t docker-post docker-post 
+        run: docker build -t docker-post docker-post
+      - name: Export data
+        run: docker run --rm
+          -e AMW_STATS_MONGO_HOST
+          -e SINCE
+          -e UNTIL
+          -v $(pwd)/exported:/workspace/exported
+          docker-export
+        env:
+          AMW_STATS_MONGO_HOST: ${{ secrets.AMW_STATS_MONGO_HOST }}
+          SINCE: ${{ env.SINCE }}
+          UNTIL: ${{ env.UNTIL }}
       - name: Generate stats
-        run: ./docker.sh
+        run: docker run --user root --rm
+          -e SINCE
+          -e UNTIL
+          -e PERIOD
+          -v $(pwd)/exported:/workspace/exported
+          -v $(pwd)/results:/workspace/pandas/results
+          docker-stats
         env:
           SINCE: ${{ env.SINCE }}
           UNTIL: ${{ env.UNTIL }}
           PERIOD: "monthly"
-          AMW_STATS_MONGO_HOST: ${{ secrets.AMW_STATS_MONGO_HOST }}
-          ACCOUNT_KEY: ${{ secrets.ACCOUNT_KEY }}
+      - name: Merge generated charts into one
+        run: docker run --rm
+          -v $(pwd)/results:/results
+          docker-imagemagick
+      - name: Publish stats
+        run: docker run --rm
+          -v $(pwd)/results:/results
+          -e APPKEY
+          -e SECRET
+          -e ACCOUNT_KEY
+          docker-post
+        env:
           APPKEY: ${{ secrets.APPKEY }}
           SECRET: ${{ secrets.SECRET }}
+          ACCOUNT_KEY: ${{ secrets.ACCOUNT_KEY }}
