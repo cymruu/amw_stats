@@ -10,9 +10,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Set SINCE env
-        run: echo "SINCE=$(date --date="$(date +'%Y-%m-01') -1 month" -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_ENV
+        run: echo "SINCE=$(date --date="$(date +'%Y-%m-01') -1 month" --iso-8601=seconds)" >> $GITHUB_ENV
       - name: Set UNTIL env
-        run: echo "UNTIL=$(date --date="$(date +'%Y-%m-01')" -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_ENV
+        run: echo "UNTIL=$(date --date="$(date +'%Y-%m-01')" --iso-8601=seconds)" >> $GITHUB_ENV
       - name: Build docker export
         run: docker build -t docker-export docker-export
       - name: Build docker-stats
