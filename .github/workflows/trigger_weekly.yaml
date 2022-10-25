@@ -10,9 +10,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Set SINCE env
-        run: echo "SINCE=$(date -d "last-monday" -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_ENV
+        run: echo "SINCE=$(date -d "last-monday" --iso-8601=seconds)" >> $GITHUB_ENV
       - name: Set UNTIL env
-        run: echo "UNTIL=$(date -d "-7 days next-monday" -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_ENV
+        run: echo "UNTIL=$(date -d "-7 days next-monday" --iso-8601=seconds)" >> $GITHUB_ENV
       - name: Build docker export
         run: docker build -t docker-export docker-export
       - name: Build docker-stats
