@@ -3,6 +3,7 @@
 # exit if command fails
 set -e
 
+TZ=Europe/Warsaw
 docker build -t docker-export docker-export
 docker run --rm \
 -e AMW_STATS_MONGO_HOST \
