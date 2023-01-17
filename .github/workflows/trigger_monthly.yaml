@@ -1,7 +1,7 @@
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 6 1 * *"
+  # schedule:
+  #   - cron: "0 6 1 * *"
 jobs:
   stats_daily:
     runs-on: ubuntu-latest
